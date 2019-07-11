@@ -49,6 +49,7 @@
     <Compile Include="DapperDataHelper.cs" />
     <Compile Include="Log4Helper.cs" />
     <Compile Include="MD5Helper.cs" />
+    <Compile Include="PageBar.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ValidateCode.cs" />
   </ItemGroup>

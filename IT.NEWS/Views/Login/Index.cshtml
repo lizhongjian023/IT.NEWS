@@ -14,14 +14,16 @@
     </script>
     <script src="~/Scripts/jquery-1.7.1.min.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
     <script type="text/javascript">
         function changeCheckCode() {
-            $("#img").attr("src",$("#img").attr("src")+1);  //id=2
+            $("#img").attr("src", $("#img").attr("src") + 3);  //id=2
         }
         function afterLogin(data) {
             var serverData = data.split(':');
             if (serverData[0] == "ok") {
-                window.location.href = "/Home/Index";
+                window.location.href = "/Home/Index"
             } else if (serverData[0] == "no") {
                 $("#errorMsg").text(serverData[1]);
                 changeCheckCode();
@@ -204,7 +206,7 @@
                                 验证码：
                             </td>
                             <td align="left">
-                                <input type="text" class="login-text" id="code" name="vCode" value="1" />
+                                <input type="text" class="login-text" id="code" name="vCode" value="1"  style="width:80px"/>
                             </td>
                         </tr>
                         <tr>

@@ -42,6 +42,12 @@
     <Reference Include="Dapper, Version=1.50.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.1.50.5\lib\net451\Dapper.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\MSTest.TestFramework.1.2.0\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
@@ -50,6 +56,7 @@
       <HintPath>..\packages\MSTest.TestFramework.1.2.0\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -66,6 +73,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="EF_UserInfoServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserInfoServiceTests.cs" />
   </ItemGroup>
@@ -90,9 +98,21 @@
       <Project>{7AF16792-3D1A-44EB-9E11-544E966483F6}</Project>
       <Name>IT.NEWS.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\IT.NEWS.Dal\IT.NEWS.Dal.csproj">
+      <Project>{84bf679c-1ef5-4b63-bf22-5d4d6a5b00ac}</Project>
+      <Name>IT.NEWS.Dal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IT.NEWS.IDal\IT.NEWS.IDal.csproj">
+      <Project>{D7C1E7AB-C8B2-4FB5-AB3F-40EEA1C50564}</Project>
+      <Name>IT.NEWS.IDal</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IT.NEWS.Model\IT.NEWS.Model.csproj">
-      <Project>{df9505ae-e855-40c9-9e40-b3db5a40723f}</Project>
+      <Project>{3FD0C992-58D2-4DD8-B352-53166953A161}</Project>
       <Name>IT.NEWS.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IT.NEWS.StaticDalFactory\IT.NEWS.StaticDalFactory.csproj">
+      <Project>{ED329A85-D488-4CB7-A0D7-6BFA4C27B60D}</Project>
+      <Name>IT.NEWS.StaticDalFactory</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

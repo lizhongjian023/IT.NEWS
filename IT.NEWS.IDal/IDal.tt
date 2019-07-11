@@ -1,0 +1,55 @@
+﻿<#@ template  debug="true" hostSpecific="true" #>
+<#@ output extension=".cs" #>
+<#@ Assembly Name="System.Core" #>
+<#@ Assembly Name="System.Windows.Forms" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Diagnostics" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #> 
+<#@ template language="C#" debug="false" hostspecific="true"#>
+<#@ include file="EF.Utility.CS.ttinclude"#><#@
+ output extension=".cs"#>
+ 
+<#
+
+CodeGenerationTools code = new CodeGenerationTools(this);
+MetadataLoader loader = new MetadataLoader(this);
+CodeRegion region = new CodeRegion(this, 1);
+MetadataTools ef = new MetadataTools(this);
+
+string inputFile =  @"..\\IT.NEWS.Model\Model1.edmx";
+
+EdmItemCollection ItemCollection = loader.CreateEdmItemCollection(inputFile);
+string namespaceName = code.VsNamespaceSuggestion();
+
+EntityFrameworkTemplateFileManager fileManager = EntityFrameworkTemplateFileManager.Create(this);
+
+#>
+using IT.NEWS.Model;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace IT.NEWS.IDal
+{
+
+<#
+// Emit Entity Types
+
+	foreach (EntityType entity in ItemCollection.GetItems<EntityType>().OrderBy(e => e.Name))
+{    //fileManager.StartNewFile(entity.Name + "RepositoryExt.cs");
+    //BeginNamespace(namespaceName, code);    
+#>	  
+	public partial interface I<#=entity.Name#>Dal : IBaseDal<<#=entity.Name#>>
+    {
+       
+    }
+
+<#}#>
+	
+}
+

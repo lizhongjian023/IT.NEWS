@@ -8,7 +8,7 @@ namespace IT.NEWS.Common
 {
     public static class Log4Helper
     {
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger("AdoNetAppender");
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger("LoginLogger");
         public static void WriteErr(string msg)
         {
             log.Error(msg + "Err级别，报错");

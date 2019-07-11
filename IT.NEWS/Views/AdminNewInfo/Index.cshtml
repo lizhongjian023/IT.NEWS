@@ -3,59 +3,138 @@
     Layout = null;
 }
 @using IT.NEWS.Model
+@using IT.NEWS.Common
 
 <!DOCTYPE html>
 
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <script src="~/Scripts/jquery.easyui.min.js"></script>
-    <script src="~/Scripts/jquery-1.7.1.js"></script>
+    <script src="~/Scripts/jquery-1.7.1.min.js"></script>
     <script src="~/Scripts/easyui-lang-zh_CN.js"></script>
+    <script src="~/Scripts/jquery.easyui.min.js"></script>
     <link href="~/Content/themes/default/easyui.css" rel="stylesheet" />
     <link href="~/Content/themes/icon.css" rel="stylesheet" />
+    <link href="~/Content/pageBar.css" rel="stylesheet" />
+    <link href="~/Content/tableStyle.css" rel="stylesheet" />
     <script type="text/javascript">
         $(function () {
-            $('detailDiv').css('display', 'none');
+            $('#detailDiv').css('display', 'none');
+            $("#divAdd").css('display', 'none')
+
             $('.details').click(function () {
-                showDetail($(this).attr('id'));//显示详细信息
+                showDetail($(this).attr("ids"));//显示详细信息
             });
-
-
+            $(".deletes").click(function () {
+                deleteInfo($(this).attr("ids"),$(this));               //删除信息
+            });
+            $("#addInfo").click(function () {
+                addNewInfo();
+            })
         });
-        //  显示详细信息
 
-        function showDetail(id) {
-            $.post('/AdminNewInfo/GetNewInfoModel', { 'id': id }, function (data) {
-                $('#title').text(data.Title);
-                $('#author').text(data.Author);
-                $('#Msg').text(data.NewsMsg);
-                $('#subTime').text(data.SubTime);
-            });
-            $('#detailDiv').css('display', 'block');
-            $('#detailDiv').dialog({
+        //  增加新闻
+
+        function addNewInfo() {
+            $("#AddFrame").attr("src", "/AdminNewInfo/ShowAddInfo")
+            $("#divAdd").css('display', 'block');  //显示DIv
+            $('#divAdd').dialog({
                 modal: true,
                 resizable: true,
                 maximizable: true,
                 collapsible: true,
-                title: "新闻详细",
-                width: 400,
-                height: 300,
+                title: "添加新闻",
+                width: 900,
+                height: 600,
                 buttons: [{
                     text: '确定',
                     iconCls: 'icon-ok',
                     handler: function () {
-                        alert('ok');
+                        //  调用子窗体方法
+                        var chilWindow = $("#AddFrame")[0].contentWindow;  // 获取子窗体的window对象
+                        chilWindow.subFrom();
                     }
                 }, {
                     text: '取消',
                     handler: function () {
-                        $('#detailDiv').dialog('close');
+                        $('#divAdd').dialog('close');
                     }
                 }]
             });
+
+        }
+        //   添加完成之后调用该方法关闭添加窗口
+        function affterAdd() {
+            $('#divAdd').dialog('close');
         }
 
+
+        //删除新闻
+        function deleteInfo(id ,control) {
+            //alert(id);
+            $.messager.confirm("提示", "确定要删除该记录吗?", function (r) {
+                if (r) {//该条件成立表示删除该记录
+                    //发送异步请求.
+                    $.post("/AdminNewInfo/DeleteNewInfo", { "id": id }, function (data) {
+                        if (data == "ok") {
+                            // 去掉表哥的 td  
+                            $(control).parent().parent().remove();
+                            $.messager.alert("提示", "删除成功", "info");
+                        } else {
+                            $.messager.alert("提示", "删除失败", "info");
+                        }
+                    });
+                    //$.messager.show({
+                    //    title: '提示',
+                    //    msg: '恭喜删除成功!!',
+                    //    showType: 'show'
+                    //});
+                }
+            });
+        }
+
+
+
+
+
+
+        //  显示详细信息
+
+        function showDetail(id) {
+
+            $.post('/AdminNewInfo/GetNewInfoModel', { 'id': id }, function (data) {    //异步刷新   mvc自带的ajax
+                $('#title').text(data.Title);
+                $('#author').text(data.Author);
+                $('#Msg').html(data.NewsMsg);
+                $('#subTime').text(ChangeDateFormat(data.SubTime));
+                $('#detailDiv').css('display', 'block');
+                $('#detailDiv').dialog({
+                    modal: true,
+                    resizable: true,
+                    maximizable: true,
+                    collapsible: true,
+                    title: "新闻详细",
+                    width: 600,
+                    height: 400,
+                    buttons: [{
+                        text: '确定',
+                        iconCls: 'icon-ok',
+                        handler: function () {
+                            //alert('ok');
+                            // 调用子窗体的方法
+                            var chaildWin = $("#ADDFram")[0].contentWindow;   //获取子窗体的window
+                            chilWindow.subFrom();
+                        }
+                    }, {
+                        text: '取消',
+                        handler: function () {
+                            $('#detailDiv').dialog('close');
+                        }
+                    }]
+                });
+            });
+
+        }
 
         //将序列化成json格式后日期(毫秒数)转成日期格式
         function ChangeDateFormat(cellval) {
@@ -72,49 +151,65 @@
     <title>Index</title>
 </head>
 <body>
-         新闻列表页面
+    <div>
+
+        <a href="javascript:void(0)" id="addInfo">添加</a>
+
+        新闻列表页面
         @if (ViewData["newsList"] != null)
     {
-     
-            <table with="100%">
-                <tr> <th>编号</th><th>作者</th><th>标题</th><th>时间</th><th>详细</th></tr>
 
-                @foreach (var news in (IEnumerable<News>)ViewData["newsList"])
-            {
-                <tr>
-                    <td> @news.Id </td>
-                    <td> @news.Author </td>
-                    <td> @news.Title </td>
-                    <td> @news.SubTime </td>
-                    <td> @news.NewsMsg </td>
-                    <td> <a href="javascript：void(0)" class="details" id="@news.Id">详细</a></td>
-                </tr>
-        }
+        <table with="100%">
+            <tr> <th>编号</th><th>作者</th><th>标题</th><th>时间</th><th>详细</th></tr>
 
-            </table>
-            }
-            else
-            {
-            <span>暂无数据</span>
-            }
+            @foreach (News news in (List<News>)ViewData["newsList"])
+        {
+            <tr>
+                <td> @news.Id </td>
+                <td> @news.Author </td>
+                <td> @news.Title </td>
+                <td> @news.SubTime </td>
+                @*<td> @news.NewsMsg </td>*@
+                <td> <a href="javascript:void(0)" class="details" ids="@news.Id">详细</a></td>
+                <td> <a href="javascript:void(0)" class="deletes" ids="@news.Id">删除</a></td>
+            </tr>
+    }
+
+        </table>
+        <div class="page_nav">
+            @MvcHtmlString.Create(PageBar.GetPageBar(ViewBag.PageIndex, ViewBag.PageCount))
+
+        </div>
+}
+else
+{
+    <span>暂无数据</span>
+}
         @*显示详细信息*@
-
+    </div>
     <div id="detailDiv">
         <table>
             <tr>
-                <td>标题<span id="title"></span></td>
-            </tr> 
-            <tr>
-                <td>作者<span id="author"></span></td>
+                <td>标题:  <span id="title"></span></td>
             </tr>
             <tr>
-                <td>时间<span id="subTime"></span></td>
+                <td>作者:  <span id="author"></span></td>
             </tr>
             <tr>
-                <td>内容<span id="Msg"></span></td>
+                <td>时间:  <span id="subTime"></span></td>
+            </tr>
+            <tr>
+                <td>内容:  <span id="Msg"></span></td>
             </tr>
         </table>
     </div>
+
+    @*添加信息*@ 
+    <div id="divAdd" style="overflow:hidden">
+        <iframe src ="/AdminNewInfo/ShowAddInfo"id="AddFrame" frameborder="0" width="100%" height="100%" scrolling="auto"></iframe>
+    </div>
+
+
 
 </body>
 </html>

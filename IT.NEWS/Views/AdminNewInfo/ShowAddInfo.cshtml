@@ -1,0 +1,131 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+
+    <script src="/KinderEditor/kindeditor-min.js"></script>
+    <link rel="stylesheet" href="/KinderEditor/themes/default/default.css" />
+    <link rel="stylesheet" href="/KinderEditor/plugins/code/prettify.css" />
+    <link href="~/Content/themes/tableStyle.css" rel="stylesheet" />
+    <script charset="utf-8" src="/KinderEditor/kindeditor.js"></script>
+    <script charset="utf-8" src="/KinderEditor/lang/zh_CN.js"></script>
+    <script src="~/Scripts/jquery.easyui.min.js"></script>
+    <script src="~/Scripts/easyui-lang-zh_CN.js"></script>
+    <script src="~/Scripts/MyAjaxForm.js"></script>
+    <script src="~/Scripts/jquery-1.7.1.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script charset="utf-8" src="/KinderEditor/plugins/code/prettify.js"></script>
+    <title>添加新闻</title>
+
+
+    @*富文本编辑器*@
+    <script type="text/javascript">
+        KindEditor.ready(function (K) {
+            var editor1 = K.create('#MsgContent', {
+                cssPath: '/KinderEditor/plugins/code/prettify.css',
+                uploadJson: '/KinderEditor/asp.net/upload_json.ashx',
+                fileManagerJson: '/KinderEditor/asp.net/file_manager_json.ashx',
+                allowFileManager: true,
+                afterBlur: function () { this.sync(); },//注意这里（异步提交时需要同步）
+                afterCreate: function () {
+                    var self = this;
+                    self.sync();//把富文本编辑器的内容放到  文本域里面去。
+
+                }
+            });
+            prettyPrint();//注意要调用该方法.
+        });
+        $(function () {
+            fileUpLoad();
+        });
+
+
+
+        function fileUpLoad() {
+            $("#btnFileUp").click(function () {
+               // alert("",'das')
+                if ($("#fileUpImage").val() == "") {
+                   //  $.messager.alert("提示", "请选择上传的图片文件！", "info");
+                     alert("未选择文件","info");
+                   // $.messager.alert("dasda",'das');
+                    return;
+                }
+                $("#form1").ajaxSubmit({
+                    type: "post",
+                    url: "/AdminNewInfo/FileUpLoad",
+                    success: function (data) {
+                        var serverData = data.split(':')
+
+                        if (serverData[0] == "ok") {
+                            $("#hidImagePath").val(serverData[1]); //将路径赋值给隐藏域  ，提交到服务端保存到数据库
+                            $("#showImage").append("<img src = '" + serverData[1] + "' with = '40px',height = '30px'/>")
+
+                        } else {
+                            //$.messager.alert("提示", serverData[1], "info")\
+                            alert(serverData[1],"info");
+                        }
+                    }
+
+                })
+            })
+        }
+
+          主窗窗体调用
+        function subForm() {
+            $("#form1").submit();
+        }
+
+        //   调用主窗体，关闭界面
+        function afterAdd() {
+            window.parent.afterAdd();     
+        }
+    </script>
+</head>
+<body>
+
+    <div>
+        @using (Ajax.BeginForm("AddNewInfo", "AdminNewInfo", new AjaxOptions() { HttpMethod = "post", OnSuccess = "affterAdd" }, new { id = "form1" }))
+        {
+            <table>
+                <tr>
+                    <td width="30px"> 新闻标题：</td>
+                    <td width="100"> <input type="text" name="Title" /></td>
+
+                </tr>
+                <tr>
+                    <td width="30px"> 作    者： </td>
+                    <td width="100"> <input type="text" name="Author" /></td>
+                </tr>
+                <tr>
+                    <td>新闻名称</td>
+                    <td><input type="text" name="Title" /></td>
+                </tr>
+                <tr>
+                    <td width="30px"> 提交时间：</td>
+                    <td><input type="text" name="SubTiSubTimeme" /></td>
+                </tr>
+                <tr>
+                    <td width="30px">上传图片</td>
+                    <td>
+                        <input type="file" name="fileUp" id="fileUpImage" />
+                        <input type="submit" value="上传图片" id="btnFileUp" />
+                        <input type="hidden" id="hideImagePath" name="ImagePath" />
+                        <div id="showImage">  </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">新闻内容<textarea id="MsgContent" cols="100" rows="8" style="width: 500px; height: 200px; visibility: hidden;" name="Msg"></textarea></td>
+
+                </tr>
+            </table>
+        }
+    </div>
+</body>
+</html>

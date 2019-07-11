@@ -1,0 +1,394 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="HT_NewsModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="HT_NewsModelStoreContainer">
+    <EntitySet Name="Company" EntityType="HT_NewsModel.Store.Company" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Department" EntityType="HT_NewsModel.Store.Department" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserInfo" EntityType="HT_NewsModel.Store.UserInfo" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users" EntityType="HT_NewsModel.Store.Users" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="News" EntityType="HT_NewsModel.Store.News" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="NewsComments" EntityType="HT_NewsModel.Store.NewsComments" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserMSG" EntityType="HT_NewsModel.Store.UserMSG" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="LogA" EntityType="HT_NewsModel.Store.LogA" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Test" EntityType="HT_NewsModel.Store.Test" store:Type="Tables" Schema="dbo" />
+  </EntityContainer>
+  <EntityType Name="Company">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CId" Type="smallint" Nullable="true" />
+    <Property Name="CName" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="UserInfoId" Type="nvarchar(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DepartmentId" Type="smallint" Nullable="true" />
+    <Property Name="DName" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="DcompanyIId" Type="smallint" Nullable="true" />
+    <Property Name="UserInfoId" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="UserInfo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Age" Type="smallint" Nullable="true" />
+    <Property Name="WorkCode" Type="int" Nullable="true" />
+    <Property Name="Company" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Department" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="CId" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="smallint" Nullable="true" />
+    <Property Name="LoginId" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Address" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Number" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="ll" Type="nvarchar(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="News">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="NewsMsg" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="SubTime" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Author" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="ImagePath" Type="nvarchar" Nullable="true" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="NewsComments">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NewsId" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Msg" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="CrDateTime" Type="nvarchar" Nullable="true" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="UserMSG">
+    <Key>
+      <PropertyRef Name="userid" />
+    </Key>
+    <Property Name="userid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="password" Type="nvarchar" Nullable="true" MaxLength="2000" />
+    <Property Name="zt" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="username" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="workcode" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="phoneNumber" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="address" Type="nvarchar" Nullable="true" MaxLength="100" />
+    <Property Name="departmentid" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="company" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="login" Type="nvarchar" Nullable="true" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="LogA">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="Date" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="Thread" Type="varchar" Nullable="true" MaxLength="100" />
+    <Property Name="Level" Type="varchar" Nullable="true" MaxLength="100" />
+    <Property Name="Logger" Type="varchar" Nullable="true" MaxLength="200" />
+    <Property Name="Operator" Type="int" Nullable="true" />
+    <Property Name="Message" Type="varchar(max)" Nullable="true" />
+    <Property Name="ActionType" Type="int" Nullable="true" />
+    <Property Name="Operand" Type="varchar" Nullable="true" MaxLength="300" />
+    <Property Name="IP" Type="varchar" Nullable="true" MaxLength="20" />
+    <Property Name="MachineName" Type="varchar" Nullable="true" MaxLength="100" />
+    <Property Name="Browser" Type="varchar" Nullable="true" MaxLength="50" />
+    <Property Name="Location" Type="varchar(max)" Nullable="true" />
+    <Property Name="Exception" Type="varchar(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Test">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Test1" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Name" Type="nvarchar" Nullable="true" MaxLength="50" />
+  </EntityType>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HT_NewsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CId" Type="Int16" />
+          <Property Name="CName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserInfoId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DepartmentId" Type="Int16" />
+          <Property Name="DName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DcompanyIId" Type="Int16" />
+          <Property Name="UserInfoId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="UserInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Age" Type="Int16" />
+          <Property Name="WorkCode" Type="Int32" />
+          <Property Name="Company" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Department" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int16" />
+          <Property Name="LoginId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Number" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ll" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="HT_NewsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Company" EntityType="Self.Company" />
+          <EntitySet Name="Department" EntityType="Self.Department" />
+          <EntitySet Name="UserInfo" EntityType="Self.UserInfo" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <EntitySet Name="News" EntityType="HT_NewsModel.News" />
+          <EntitySet Name="NewsComments" EntityType="HT_NewsModel.NewsComments" />
+          <EntitySet Name="UserMSG" EntityType="HT_NewsModel.UserMSG" />
+          <EntitySet Name="LogA" EntityType="HT_NewsModel.LogA" />
+          <EntitySet Name="Test" EntityType="HT_NewsModel.Test" />
+        </EntityContainer>
+        <EntityType Name="News">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NewsMsg" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SubTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Author" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ImagePath" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="NewsComments">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NewsId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Msg" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CrDateTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="UserMSG">
+          <Key>
+            <PropertyRef Name="userid" />
+          </Key>
+          <Property Name="userid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="password" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="zt" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="workcode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="phoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="departmentid" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="company" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="LogA">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Date" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Thread" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Level" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Logger" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Operator" Type="Int32" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ActionType" Type="Int32" />
+          <Property Name="Operand" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="IP" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="MachineName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Browser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Location" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Exception" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Test">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Test1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="HT_NewsModelStoreContainer" CdmEntityContainer="HT_NewsEntities">
+    <EntitySetMapping Name="Company">
+      <EntityTypeMapping TypeName="IsTypeOf(HT_NewsModel.Company)">
+        <MappingFragment StoreEntitySet="Company">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CId" ColumnName="CId" />
+          <ScalarProperty Name="CName" ColumnName="CName" />
+          <ScalarProperty Name="UserInfoId" ColumnName="UserInfoId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Department">
+      <EntityTypeMapping TypeName="IsTypeOf(HT_NewsModel.Department)">
+        <MappingFragment StoreEntitySet="Department">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+          <ScalarProperty Name="DName" ColumnName="DName" />
+          <ScalarProperty Name="DcompanyIId" ColumnName="DcompanyIId" />
+          <ScalarProperty Name="UserInfoId" ColumnName="UserInfoId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserInfo">
+      <EntityTypeMapping TypeName="IsTypeOf(HT_NewsModel.UserInfo)">
+        <MappingFragment StoreEntitySet="UserInfo">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Age" ColumnName="Age" />
+          <ScalarProperty Name="WorkCode" ColumnName="WorkCode" />
+          <ScalarProperty Name="Company" ColumnName="Company" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="CId" ColumnName="CId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="IsTypeOf(HT_NewsModel.Users)">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="LoginId" ColumnName="LoginId" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Number" ColumnName="Number" />
+          <ScalarProperty Name="ll" ColumnName="ll" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="News">
+      <EntityTypeMapping TypeName="IsTypeOf(HT_NewsModel.News)">
+        <MappingFragment StoreEntitySet="News">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="NewsMsg" ColumnName="NewsMsg" />
+          <ScalarProperty Name="SubTime" ColumnName="SubTime" />
+          <ScalarProperty Name="Author" ColumnName="Author" />
+          <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NewsComments">
+      <EntityTypeMapping TypeName="IsTypeOf(HT_NewsModel.NewsComments)">
+        <MappingFragment StoreEntitySet="NewsComments">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NewsId" ColumnName="NewsId" />
+          <ScalarProperty Name="Msg" ColumnName="Msg" />
+          <ScalarProperty Name="CrDateTime" ColumnName="CrDateTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserMSG">
+      <EntityTypeMapping TypeName="IsTypeOf(HT_NewsModel.UserMSG)">
+        <MappingFragment StoreEntitySet="UserMSG">
+          <ScalarProperty Name="userid" ColumnName="userid" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="zt" ColumnName="zt" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="workcode" ColumnName="workcode" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="phoneNumber" ColumnName="phoneNumber" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="departmentid" ColumnName="departmentid" />
+          <ScalarProperty Name="company" ColumnName="company" />
+          <ScalarProperty Name="login" ColumnName="login" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LogA">
+      <EntityTypeMapping TypeName="IsTypeOf(HT_NewsModel.LogA)">
+        <MappingFragment StoreEntitySet="LogA">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Thread" ColumnName="Thread" />
+          <ScalarProperty Name="Level" ColumnName="Level" />
+          <ScalarProperty Name="Logger" ColumnName="Logger" />
+          <ScalarProperty Name="Operator" ColumnName="Operator" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="ActionType" ColumnName="ActionType" />
+          <ScalarProperty Name="Operand" ColumnName="Operand" />
+          <ScalarProperty Name="IP" ColumnName="IP" />
+          <ScalarProperty Name="MachineName" ColumnName="MachineName" />
+          <ScalarProperty Name="Browser" ColumnName="Browser" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="Exception" ColumnName="Exception" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Test">
+      <EntityTypeMapping TypeName="IsTypeOf(HT_NewsModel.Test)">
+        <MappingFragment StoreEntitySet="Test">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Test1" ColumnName="Test1" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

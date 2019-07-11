@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace IT.NEWS.Common
+namespace IT.NEWS.Dal
 {
     public class ValidateCode
     {

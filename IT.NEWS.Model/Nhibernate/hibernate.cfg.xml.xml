@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<hibernate-configuration  xmlns="urn:nhibernate-configuration-2.2" >
+  <session-factory name="NHibernate.Test">
+    <property name="connection.driver_class">NHibernate.Driver.SqlClientDriver</property>
+    <property name="connection.connection_string">
+      Server=(local);initial catalog=Mvc_test;Integrated Security=SSPI
+    </property>
+    <property name="dialect">NHibernate.Dialect.MsSql2012Dialect</property>
+    <property name="show_sql">false</property>
+    <property name="hbm2ddl.auto">update</property>
+    <property name="adonet.batch_size">10</property>
+    <property name="command_timeout">60</property>
+    <property name="current_session_context_class">web</property>
+    <!--这个地方很重要,没有这句话，会报 No current session 当绑定的时候-->
+    <!--Mapping-->
+    <mapping resource="Ebuy.Website.Models.Nhibernate.Employee.hbm.xml" assembly="Ebuy.Website" file=""/>
+  </session-factory>
+</hibernate-configuration>

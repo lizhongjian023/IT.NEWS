@@ -1,5 +1,8 @@
 ﻿using IT.NEWS.Dal;
+using IT.NEWS.IBll;
+using IT.NEWS.IDal;
 using IT.NEWS.Model;
+using IT.NEWS.StaticDalFactory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,32 +11,27 @@ using System.Threading.Tasks;
 
 namespace IT.NEWS.Bll
 {
-    public class UserInfoService
+    public partial class UserInfoService : BaseService<UserInfo>, IUserInfoService
     {
-        UserInfoDal userInfoDal = new UserInfoDal();
+        //EF_UserInfoDal userDal = new EF_UserInfoDal();
 
-        UserInfoDapper userInfoDapper = new UserInfoDapper();
+        //public int AddUserInfo(UserInfo userInfo)
+        //{
+        //    return userDal.Add(userInfo);
+        //}
 
-        public UserInfo GetUserInfo(string userName, string userPsd)
-        {
-            return userInfoDal.GetUserInfo(userName, userPsd);
+        //public UserInfoService(IDbSession DbSession) : base(DbSession)
+        //{
+        //    this.CurrentDal = DbSession.UserInfoDal;
+        //}
 
-        }
+     //   private IDbSession dbSession = DbSessionFactory.GetCurrentDbSession();
 
-        public IEnumerable<UserInfo>   GetUserInfoByDapper(UserInfo userInfo)
-        {
-            return userInfoDapper.GetUserInfoByDapper(userInfo);
-        }
 
-        /// <summary>
-        ///   新增  
-        /// </summary>
-        /// <param name="userInfo"></param>
-        /// <returns></returns>
-        public bool AddUserInfo(UserInfo userInfo)
-        {
-            return userInfoDapper.AddUserInfo(userInfo)>0?true:false;
-        }
+        //public override void SetCurrentDal()
+        //{
+        //    this.CurrentDal = this.DbSession.EF_UserInfoDal;
+        //}
 
     }
 }

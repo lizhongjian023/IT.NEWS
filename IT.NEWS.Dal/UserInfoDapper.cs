@@ -49,7 +49,7 @@ namespace IT.NEWS.Dal
         /// <returns></returns>
         public int UpdateUserInfo(UserInfo userInfo)
         {
-            string sql = " Update UserInfo set [UserName] = @UserInfo,[UserLoginName] = @UserLoginName,[UserPsd] = @UserPsd,[IsOnline] = @IsOnline,[IsUseful] = @IsUseful,[UserRealName] = @UserRealName,[UserMail] =  @UserMail  where id = @id ";
+            string sql = " Update UserInfo set [UserName] = @UserName,[UserLoginName] = @UserLoginName,[UserPsd] = @UserPsd,[IsOnline] = @IsOnline,[IsUseful] = @IsUseful,[UserRealName] = @UserRealName,[UserMail] =  @UserMail  where id = @id ";
             using (var conn = DapperDataHelper.GetDbConnection())
             {
                 return conn.Execute(sql, userInfo);

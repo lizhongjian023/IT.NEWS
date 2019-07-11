@@ -1,0 +1,42 @@
+﻿<div class="jumbotron">
+    <h1>这是测试的WebApi页面</h1><br />
+
+
+
+
+</div>
+
+<div>
+
+    <a href="/API/USERINFO" />【1】无参数方法的测试 hello </a>
+
+    <p></p>
+
+    <a href="/API/USERINFO/55" />【2】 含参数方法的测试</a>
+    <p></p>
+
+    <a href="/API/USERINFO/QueryDemoInfo/333" />【3】 含参数方法的测试</a>
+
+    <input type="button" id="txtButon" value="测试路由" />
+    <br />
+    <input type="button" id="txtButon2" value="测试路由2" />
+</div>
+
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+        $("#txtButon").click(function () {
+            $.get("/UserInfo/QueryDemoInfo", { id: 222 },
+                function (data, status) {
+                    alert(data);
+                });
+        });
+        $("#txtButon2").click(function () {
+            $.post("/UserInfo/UpdateUserInfo", { id: 1002, UserName: "WebApi", UserLoginName:"123456" },
+                function (data, status) {
+                    alert(data);
+                });
+        });
+    });
+</script>
