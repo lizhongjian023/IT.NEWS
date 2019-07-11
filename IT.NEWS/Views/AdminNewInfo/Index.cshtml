@@ -1,0 +1,120 @@
+﻿
+@{
+    Layout = null;
+}
+@using IT.NEWS.Model
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <script src="~/Scripts/jquery.easyui.min.js"></script>
+    <script src="~/Scripts/jquery-1.7.1.js"></script>
+    <script src="~/Scripts/easyui-lang-zh_CN.js"></script>
+    <link href="~/Content/themes/default/easyui.css" rel="stylesheet" />
+    <link href="~/Content/themes/icon.css" rel="stylesheet" />
+    <script type="text/javascript">
+        $(function () {
+            $('detailDiv').css('display', 'none');
+            $('.details').click(function () {
+                showDetail($(this).attr('id'));//显示详细信息
+            });
+
+
+        });
+        //  显示详细信息
+
+        function showDetail(id) {
+            $.post('/AdminNewInfo/GetNewInfoModel', { 'id': id }, function (data) {
+                $('#title').text(data.Title);
+                $('#author').text(data.Author);
+                $('#Msg').text(data.NewsMsg);
+                $('#subTime').text(data.SubTime);
+            });
+            $('#detailDiv').css('display', 'block');
+            $('#detailDiv').dialog({
+                modal: true,
+                resizable: true,
+                maximizable: true,
+                collapsible: true,
+                title: "新闻详细",
+                width: 400,
+                height: 300,
+                buttons: [{
+                    text: '确定',
+                    iconCls: 'icon-ok',
+                    handler: function () {
+                        alert('ok');
+                    }
+                }, {
+                    text: '取消',
+                    handler: function () {
+                        $('#detailDiv').dialog('close');
+                    }
+                }]
+            });
+        }
+
+
+        //将序列化成json格式后日期(毫秒数)转成日期格式
+        function ChangeDateFormat(cellval) {
+            var date = new Date(parseInt(cellval.replace("/Date(", "").replace(")/", ""), 10));
+            var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+            var currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+            return date.getFullYear() + "-" + month + "-" + currentDate;
+        }
+
+
+    </script>
+
+
+    <title>Index</title>
+</head>
+<body>
+         新闻列表页面
+        @if (ViewData["newsList"] != null)
+    {
+     
+            <table with="100%">
+                <tr> <th>编号</th><th>作者</th><th>标题</th><th>时间</th><th>详细</th></tr>
+
+                @foreach (var news in (IEnumerable<News>)ViewData["newsList"])
+            {
+                <tr>
+                    <td> @news.Id </td>
+                    <td> @news.Author </td>
+                    <td> @news.Title </td>
+                    <td> @news.SubTime </td>
+                    <td> @news.NewsMsg </td>
+                    <td> <a href="javascript：void(0)" class="details" id="@news.Id">详细</a></td>
+                </tr>
+        }
+
+            </table>
+            }
+            else
+            {
+            <span>暂无数据</span>
+            }
+        @*显示详细信息*@
+
+    <div id="detailDiv">
+        <table>
+            <tr>
+                <td>标题<span id="title"></span></td>
+            </tr> 
+            <tr>
+                <td>作者<span id="author"></span></td>
+            </tr>
+            <tr>
+                <td>时间<span id="subTime"></span></td>
+            </tr>
+            <tr>
+                <td>内容<span id="Msg"></span></td>
+            </tr>
+        </table>
+    </div>
+
+</body>
+</html>
