@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace IT.NEWS.Cache.Redis
 {
+
+    /// <summary>
+    /// Redis 缓存
+    /// </summary>
     public class CacheByRedis : ICache
     {
         #region Key-Value

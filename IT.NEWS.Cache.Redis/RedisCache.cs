@@ -9,7 +9,7 @@ namespace IT.NEWS.Cache.Redis
 {
     public class RedisCache
     {
-        #region -- 连接信息 --
+        #region ---- 连接信息 ----
         /// <summary>
         /// redis配置文件信息
         /// </summary>
